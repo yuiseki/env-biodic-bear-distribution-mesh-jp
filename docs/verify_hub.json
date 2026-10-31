@@ -1,0 +1,48 @@
+{
+ "repo": "yuiseki/env-biodic-bear-distribution-mesh-jp",
+ "revision": "7f635cbfb92be5093fa707dbe6afec0e37d240f4",
+ "files_checked": 24,
+ "files_on_hub": 25,
+ "tables": {
+  "parquet/bear_mesh_cells_from_code.parquet": {
+   "rows": 28194,
+   "non_null": {
+    "survey_id": 28194,
+    "source_row": 28194,
+    "mesh_code": 28194,
+    "mesh_digits": 28194,
+    "cell_kind": 28194,
+    "geometry_computed_from_mesh_code": 28194,
+    "bbox": 28194
+   }
+  },
+  "parquet/bear_mesh_long.parquet": {
+   "rows": 28194,
+   "non_null": {
+    "survey_id": 28194,
+    "survey_label": 28194,
+    "species": 28194,
+    "species_in_source": 28194,
+    "mesh_code": 28194,
+    "source_file": 28194,
+    "source_row": 28194,
+    "\u5730\u540d": 2040,
+    "\u5206\u985e\u7fa4": 4391,
+    "\u7a2e\u30b3\u30fc\u30c9": 4391,
+    "\u5099\u8003": 2040,
+    "\u8abf\u67fb\u7968\u756a\u53f7": 2351,
+    "\u5e74\u6708": 2351,
+    "\u78ba\u8a8d\u8abf\u67fb": 6735,
+    "Descriptio": 17068,
+    "H22_29": 17068,
+    "\u5358\u5e74\u5ea6": 17068,
+    "\u7b2c6\u56de\u3067\u78ba": 17068,
+    "\u7b2c6\u56de\u306e\u307f": 17068,
+    "\u4e21\u8abf\u67fb\u3067\u78ba": 17068,
+    "geometry": 17068,
+    "bbox": 28194
+   }
+  }
+ },
+ "problems": []
+}

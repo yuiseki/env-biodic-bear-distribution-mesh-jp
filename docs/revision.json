@@ -1,0 +1,31 @@
+{
+ "repo": "yuiseki/env-biodic-bear-distribution-mesh-jp",
+ "revision": "7f635cbfb92be5093fa707dbe6afec0e37d240f4",
+ "pushed": "2026-10-31T10:46:48+00:00",
+ "sha256": {
+  "README.md": "5a309f8518e9dcfd75eb73eebee8a94756564c0b841295551abd79be79b1eff6",
+  "LICENSE": "d22981cf8ff60c52ccced90f14ddddfdaaec1c4acaceafc20f843dd6f4f23c35",
+  "provenance.yaml": "ad1570a23752a73f4ef180595872f27ab01cba29376581fd230ec8817f9d0a1f",
+  "parquet/bear_mesh_cells_from_code.parquet": "0a89485f553b1f6b080794d52e64653e7db5d23aa71892b521c967136580b184",
+  "parquet/bear_mesh_long.parquet": "408effb4988bc591e4254b8757212dc89a22dba35921e0dcfc713b3b361379d8",
+  "raw/2026-10-31/MANIFEST.json": "5c061416c86facbd9cec304d37d1770e203e846e95bdbb511b1ae46363c6e0c0",
+  "evidence/geoportal_2019_bear_mesh_metadata.html": "af182ac4f5577e6d85bf6b222e613a56c2f64aed7480bb5dcd51b8e10a31b93d",
+  "evidence/geoportal_2019_bear_mesh_metadata.txt": "fe539049391956de9bdfd8bc3869cc7bdc3d2790961bef4fcadcedfdae4d4814",
+  "evidence/pdl_1.0.html": "af9d416e0df76a6fdecc088093fc3432f9d28cf95e5cc43f1eeb79d0d046e8c3",
+  "evidence/pdl_1.0.txt": "c7792d9f248486509f29e6a6106fcd54e7d5d452cafb04fc5ba0cfc838c82298",
+  "evidence/report_h30_quotes.txt": "5a8f2532d948d6eb869431cec6427eb4e49ac46ba6578f47889f5b157f0a8751",
+  "evidence/terms_of_service.html": "7947df4e1d36b54d8ecbd092452c7136a2b781e6baffdb919cf42bec6c0d57e2",
+  "evidence/terms_of_service.txt": "c053e3ff37bace974b6ce2703e8a8ebdd950087328d67b236c3f911c5347ab92",
+  "docs/bear_mesh_by_survey.png": "15645c74e5dc5a61234c39e11b852e853eeb314dbaba0f21899609e0a58f7058",
+  "docs/summary.json": "c00ee175ec0ebd17069ef953a4ee4a3b413fa0db47468b58ada5a621838e4910",
+  "docs/verification.json": "2beb4a227f1295c6425f5f37628b159defd7ee41d2c544238285646d5f459174",
+  "scripts/02_build.py": "5bfe5360af734a265c91ad6f6286299207193dc7278df912d860847312d596bb",
+  "scripts/03_verify.py": "8146dc062ad8eb263bf6f2ad7106bf124d1e2dbc73c896456ffc73ae81e41069",
+  "scripts/04_figure.py": "7f59d54197e15c57bad0ff5b94350b4d09f00a91d7c1cf142a940d213447fe2c",
+  "scripts/05_card.py": "567cdc244dc5e72e60ec64f4a08020dc93fa6e3c1adca9f98f24640a93204e52",
+  "scripts/06_verify_hub.py": "1a26f8302376aa37f92abede6ae1dcff1bb86769d2e14b15790dedc5d1132c08",
+  "src/convert.py": "05b67cf60fcdd34dc21267a8e157826406ed1bad524b75b11bb6444a021b7795",
+  "src/fetch.py": "e3f66a293d45505ebee23998fef4ce470af3286ad459efb7a36437b2cbf7a01d",
+  "src/publish.py": "b891a7b4a99b04329cae300b911e52121703f44ab56453b540e52c887d98eb0e"
+ }
+}
