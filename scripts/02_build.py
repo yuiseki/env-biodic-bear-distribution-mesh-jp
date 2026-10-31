@@ -11,10 +11,11 @@ import pyogrio
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
-from convert import ATTR_COLUMNS, CLASS, SURVEYS, long_rows
+from convert import ATTR_COLUMNS, CLASS, SURVEYS, cell_polygon, long_rows
 
 RAW = sorted((ROOT / "raw").iterdir())[-1]
 OUT = ROOT / "data" / "parquet" / "bear_mesh_long.parquet"
+OUT_CELLS = ROOT / "data" / "parquet" / "bear_mesh_cells_from_code.parquet"
 
 
 def main() -> None:
@@ -46,8 +47,19 @@ def main() -> None:
     geo = gpd.GeoDataFrame(df, geometry="geometry", crs=yo4_crs)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     geo.to_parquet(OUT, index=False, compression="zstd", write_covering_bbox=True)
+    # a separate file: cells COMPUTED from mesh_code (not the distributed shapes), one row per row of the long table, joined by (survey_id, source_row)
+    cells = gpd.GeoDataFrame(
+        {
+            "survey_id": geo.survey_id, "source_row": geo.source_row, "mesh_code": geo.mesh_code,
+            "mesh_digits": geo.mesh_code.str.len().astype("int64"),
+            "cell_kind": geo.mesh_code.str.len().map({6: "2nd-order regional mesh (6 digits)", 8: "5 km mesh (8 digits)"}),
+            "geometry_computed_from_mesh_code": [cell_polygon(c) for c in geo.mesh_code],
+        },
+        geometry="geometry_computed_from_mesh_code", crs=yo4_crs,
+    )  # fmt: skip
+    cells.to_parquet(OUT_CELLS, index=False, compression="zstd", write_covering_bbox=True)
     summ = {
-        "raw": RAW.relative_to(ROOT).as_posix(), "rows": len(geo), "crs": str(yo4_crs), "crs_epsg": yo4_crs.to_epsg(),
+        "raw": RAW.relative_to(ROOT).as_posix(), "rows": len(geo), "crs": str(yo4_crs), "crs_epsg": yo4_crs.to_epsg(), "cells_rows": len(cells),
         "rows_by_survey_species": {f"{k[0]}|{k[1]}": int(v) for k, v in geo.groupby(["survey_id", "species"]).size().items()},
     }  # fmt: skip
     (ROOT / "docs").mkdir(exist_ok=True)

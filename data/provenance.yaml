@@ -34,4 +34,5 @@ surveys:
 correction_notice: {url: https://www.biodic.go.jp/shapedata/files/news_yo_210331.pdf, sha256: d1b04ddde5a9aeffd78b8d95cfb5920de0ec1d3a4e8070d6a1cdb0e5df333d0b, last_modified: "Wed, 31 Mar 2021 09:11:11 GMT", republished: false}
 rows: 28194
 crs: EPSG:6668 (JGD2011), as in Bear.prj; no reprojection; CSV rows have null geometry
-processing: selected the bear rows, added survey_id/survey_label/species/species_in_source/mesh_code/source_file/source_row, kept all source attributes unchanged as strings; no correction, repair, reprojection, filling or merging
+processing: selected the bear rows, added survey_id/survey_label/species/species_in_source/mesh_code/source_file/source_row, kept all source attributes unchanged as strings except that the surveyor-code column (調査者コード of do04/do05) is not published; no correction, repair, reprojection, filling or merging. A second file, bear_mesh_cells_from_code.parquet, has cells computed by yuiseki from mesh_code (geometry_computed_from_mesh_code), not distributed shapes
+cells_from_code_check: yo4 computed cell equals distributed polygon in 17068 of 17068

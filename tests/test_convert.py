@@ -4,7 +4,7 @@ from pathlib import Path
 import pyarrow.parquet as pq
 import pytest
 
-from convert import BEARS, cell_bounds, mesh_problems
+from convert import BEARS, cell_bounds, cell_polygon, mesh_problems
 
 ROOT = Path(__file__).resolve().parent.parent
 PQ = ROOT / "data" / "parquet" / "bear_mesh_long.parquet"
@@ -35,3 +35,22 @@ def test_parquet_only_bears_and_counts():
     assert t.num_rows == json.loads((ROOT / "docs" / "summary.json").read_text())["rows"]
     assert b"geo" in t.schema.metadata
     assert all(isinstance(x, str) and x.isdigit() for x in t.column("mesh_code").to_pylist())
+
+
+CELLS = ROOT / "data" / "parquet" / "bear_mesh_cells_from_code.parquet"
+
+
+def test_cell_polygon():
+    assert cell_polygon("30365027").is_valid
+    assert round(cell_polygon("493235").area, 6) == round(0.125 * 5 / 60, 6)
+
+
+@pytest.mark.skipif(not CELLS.exists(), reason="run scripts/02_build.py first")
+def test_cells_file_is_keyed_to_long_table_and_surveyor_code_is_gone():
+    t, c = pq.read_table(PQ), pq.read_table(CELLS)
+    assert "調査者コード" not in t.column_names
+    assert c.num_rows == t.num_rows
+    for k in ("survey_id", "source_row", "mesh_code"):
+        assert c.column(k).to_pylist() == t.column(k).to_pylist()
+    assert "geometry_computed_from_mesh_code" in c.column_names
+    assert b"geo" in c.schema.metadata

@@ -19,7 +19,7 @@ CLASS = "クマ類（ヒグマ・ツキノワグマ）"  # yo4 has no species fi
 # attributes of the source files, in the order they appear in the long table
 ATTR_COLUMNS = [
     "地名", "分類群", "種コード", "備考",  # do02
-    "調査票番号", "調査者コード", "年月",  # do04, do05 (分類群 and 種コード are shared with do02)
+    "調査票番号", "年月",  # do04, do05 (分類群 and 種コード are shared with do02)
     "確認調査",  # do06
     "Descriptio", "H22_29", "単年度", "第6回で確", "第6回のみ", "両調査で確",  # yo4 (DBF names are cut at 10 bytes)
 ]  # fmt: skip
@@ -105,6 +105,14 @@ def mesh_problems(code: str) -> list[str]:
     if len(code) == 8 and (code[6] not in "27" or code[7] not in "27"):
         bad.append("5 km digits")
     return bad
+
+
+def cell_polygon(code: str):
+    """The cell of a mesh code as a shapely Polygon (lon/lat degrees), computed by cell_bounds. NOT a distributed shape."""
+    from shapely.geometry import box
+
+    w, s, e, n = cell_bounds(code)
+    return box(w, s, e, n)
 
 
 def cell_bounds(code: str) -> tuple[float, float, float, float]:

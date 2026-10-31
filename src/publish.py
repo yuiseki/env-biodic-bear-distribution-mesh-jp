@@ -19,7 +19,7 @@ import pyarrow.parquet as pq
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
-REPO = "yuiseki/env-biodic-bear-distribution-mesh-jp-2021-03"
+REPO = "yuiseki/env-biodic-bear-distribution-mesh-jp"
 ALLOWED_SPECIES = {"ツキノワグマ", "ヒグマ", "ツキノワグマ・ヒグマ", "クマ類（ヒグマ・ツキノワグマ）"}
 
 
@@ -37,12 +37,20 @@ def collect() -> dict[str, Path]:
     files: dict[str, Path] = {"README.md": DATA / "README.md", "LICENSE": DATA / "LICENSE", "provenance.yaml": DATA / "provenance.yaml"}  # fmt: skip
     pqs = sorted((DATA / "parquet").glob("*.parquet"))
     n = summ["rows"]
-    if len(pqs) != 1 or f"{n:,} rows" not in card:
-        raise SystemExit("the card does not state the row count, or there is not exactly one Parquet")
-    species = set(pq.read_table(pqs[0], columns=["species"]).column("species").to_pylist())
+    if [p.name for p in pqs] != ["bear_mesh_cells_from_code.parquet", "bear_mesh_long.parquet"] or f"{n:,} rows" not in card:
+        raise SystemExit("the card does not state the row count, or the two Parquet files are not exactly as expected")
+    long_pq = DATA / "parquet" / "bear_mesh_long.parquet"
+    t = pq.read_table(long_pq)
+    species = set(t.column("species").to_pylist())
     if not species <= ALLOWED_SPECIES:
         raise SystemExit(f"species other than the bears in the Parquet: {species - ALLOWED_SPECIES}")
-    files[f"parquet/{pqs[0].name}"] = pqs[0]
+    if "調査者コード" in t.column_names:
+        raise SystemExit("the surveyor code column must not be published")
+    cells = pq.read_table(DATA / "parquet" / "bear_mesh_cells_from_code.parquet")
+    if cells.num_rows != n or "geometry_computed_from_mesh_code" not in cells.column_names:
+        raise SystemExit("the cells file must have one row per row of the long table and the computed-geometry column")
+    for p in pqs:
+        files[f"parquet/{p.name}"] = p
     man = ROOT / summ["raw"] / "MANIFEST.json"
     if not man.is_file():
         raise SystemExit("missing MANIFEST.json")

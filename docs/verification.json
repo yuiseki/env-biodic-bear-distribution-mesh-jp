@@ -524,6 +524,37 @@
    "Polygon"
   ]
  },
+ "cells_from_code": {
+  "rows": 28194,
+  "duckdb_rows": 28194,
+  "primary_column": "geometry_computed_from_mesh_code",
+  "crs_id": {
+   "authority": "EPSG",
+   "code": 6668
+  },
+  "key_equals_long_table": true,
+  "key_unique": true,
+  "null_geometries": 0,
+  "invalid_geometries": 0,
+  "cell_sizes_deg_by_digits": {
+   "6": [
+    [
+     0.125,
+     0.08333
+    ]
+   ],
+   "8": [
+    [
+     0.0625,
+     0.04167
+    ]
+   ]
+  },
+  "yo4_computed_cell_equals_distributed_polygon (bounds within 2e-6 deg, area within 1e-7)": [
+   17068,
+   17068
+  ]
+ },
  "cross_checks": {
   "do06_meshes": 6735,
   "yo4_第6回で確_meshes": 6734,

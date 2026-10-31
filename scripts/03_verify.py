@@ -79,6 +79,26 @@ def main() -> int:
     out["geoparquet"] = {"version": geo_meta["version"], "primary_column": geo_meta["primary_column"], "crs_id": geo_meta["columns"]["geometry"]["crs"]["id"],
                          "geometry_types": geo_meta["columns"]["geometry"]["geometry_types"]}  # fmt: skip
     mesh_sets: dict[str, set[str]] = {}
+    # cells computed from the code: one row per row of the long table, same key, same order; compared with the distributed polygons for yo4
+    CPQ = ROOT / "data" / "parquet" / "bear_mesh_cells_from_code.parquet"
+    cg = gpd.read_parquet(CPQ)
+    cmeta = json.loads(pq.read_table(CPQ).schema.metadata[b"geo"])
+    cinfo: dict = {"rows": len(cg), "duckdb_rows": con.execute(f"select count(*) from read_parquet('{CPQ}')").fetchone()[0],
+                   "primary_column": cmeta["primary_column"], "crs_id": cmeta["columns"][cmeta["primary_column"]]["crs"]["id"]}  # fmt: skip
+    cinfo["key_equals_long_table"] = bool((cg[["survey_id", "source_row", "mesh_code"]].reset_index(drop=True) == gdf[["survey_id", "source_row", "mesh_code"]].reset_index(drop=True)).all().all())
+    cinfo["key_unique"] = bool(not cg.duplicated(["survey_id", "source_row"]).any())
+    cinfo["null_geometries"] = int(cg.geometry.isna().sum())
+    cinfo["invalid_geometries"] = int((~cg.geometry.is_valid).sum())
+    cinfo["cell_sizes_deg_by_digits"] = {str(k): sorted({(round(g.bounds[2] - g.bounds[0], 5), round(g.bounds[3] - g.bounds[1], 5)) for g in grp.geometry}) for k, grp in cg.groupby("mesh_digits")}
+    if cinfo["rows"] != len(gdf) or cinfo["duckdb_rows"] != len(gdf) or not cinfo["key_equals_long_table"] or not cinfo["key_unique"] or cinfo["null_geometries"] or cinfo["invalid_geometries"]:
+        mism.append(f"cells file does not match the long table: {cinfo}")
+    ydist = gdf[gdf.survey_id == "yo4"].reset_index(drop=True)
+    ycell = cg[cg.survey_id == "yo4"].reset_index(drop=True)
+    same = sum(1 for a, b in zip(ydist.geometry, ycell.geometry) if max(abs(x - y) for x, y in zip(a.bounds, b.bounds)) < 2e-6 and abs(a.area - b.area) < 1e-7)
+    cinfo["yo4_computed_cell_equals_distributed_polygon (bounds within 2e-6 deg, area within 1e-7)"] = [same, len(ydist)]
+    if same != len(ydist):
+        mism.append(f"yo4: only {same} of {len(ydist)} computed cells equal the distributed polygons")
+    out["cells_from_code"] = cinfo
     for s in SURVEYS:
         member = member_of(s.zip_name, s.member_suffix)
         rows, summ = ogr_features(s.zip_name, member, "utf-8" if s.survey_id == "yo4" else "cp932")  # GDAL recodes the DBF itself; CSV bytes pass through
@@ -110,7 +130,7 @@ def main() -> int:
             for code, geom in zip(sub.mesh_code, sub.geometry):
                 w, so, e, n = cell_bounds(code)
                 gb = geom.bounds
-                if max(abs(gb[0] - w), abs(gb[1] - so), abs(gb[2] - e), abs(gb[3] - n)) < 1e-4:
+                if max(abs(gb[0] - w), abs(gb[1] - so), abs(gb[2] - e), abs(gb[3] - n)) < 2e-6:
                     ok += 1
             info["polygon_bounds_equal_to_cell_computed_from_code"] = ok
             if ok != len(sub):
@@ -142,7 +162,7 @@ def main() -> int:
                 mism.append(f"{s.survey_id}: gdal {species_counts} vs parquet {mine}")
             if [r[mcol] for r in bear] != list(sub.mesh_code):
                 mism.append(f"{s.survey_id}: mesh codes differ in order or value")
-            for c in ("地名", "分類群", "種コード", "備考", "調査票番号", "調査者コード", "年月", "確認調査"):
+            for c in ("地名", "分類群", "種コード", "備考", "調査票番号", "年月", "確認調査"):
                 if c in bear[0]:
                     if [r[c] for r in bear] != [x if isinstance(x, str) else None for x in sub[c]]:
                         mism.append(f"{s.survey_id}: column {c} differs")

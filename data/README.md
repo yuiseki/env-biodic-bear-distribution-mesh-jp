@@ -20,9 +20,11 @@ pretty_name: Bear (Asiatic black bear, brown bear) 5 km mesh distribution of Jap
 configs:
 - config_name: default
   data_files: parquet/bear_mesh_long.parquet
+- config_name: cells_from_code
+  data_files: parquet/bear_mesh_cells_from_code.parquet
 ---
 
-# env-biodic-bear-distribution-mesh-jp-2021-03
+# env-biodic-bear-distribution-mesh-jp
 
 The bear (ツキノワグマ, ヒグマ) distribution mesh files that the Biodiversity Center of the Ministry of the Environment of Japan
 (環境省 生物多様性センター) publishes for five surveys, put into one long table of 28,194 rows, with the values left as they are in the files.
@@ -30,7 +32,7 @@ Only the bear rows are kept; the ZIPs hold other species too (listed below), and
 
 Credit. 出典：環境省生物多様性センター『自然環境保全基礎調査』『要注意鳥獣(クマ等)生息分布調査』を加工して作成
 (<https://www.biodic.go.jp/shapedata/download.html>, データダウンロード日 2026-10-31).
-Processed. Rows were picked out of the original files and put in one Parquet table by yuiseki: nothing was corrected, re-projected, filled in or merged.
+Processed. Rows were picked out of the original files and put in a Parquet table by yuiseki (the surveyor-code column was left out, see Columns): nothing was corrected, re-projected, filled in or merged. A second file holds cells that yuiseki computed from the mesh codes; they are not shapes distributed by the Ministry.
 This is not a publication of the Ministry, and nothing here is to be shown as if the Ministry had made it.
 
 ## What this is, and what it is not
@@ -68,7 +70,8 @@ Not taken: do03 (birds only), yo1 (アライグマ), yo5 (カモシカ), and the
 
 ## Files
 
-- `parquet/bear_mesh_long.parquet`: GeoParquet 1.1.0, 28,194 rows. CRS of the geometry: EPSG:6668 (JGD2011).
+- `parquet/bear_mesh_long.parquet`: GeoParquet 1.1.0, 28,194 rows. The `geometry` column is the polygon from the distributed file and exists for yo4 only (null elsewhere); CRS EPSG:6668 (JGD2011).
+- `parquet/bear_mesh_cells_from_code.parquet`: GeoParquet, 28,194 rows, one per row of the long table (join on `survey_id` + `source_row`). Its polygon column `geometry_computed_from_mesh_code` is computed by yuiseki from `mesh_code`; it is not a shape distributed by the Ministry (see "Cells computed from the mesh code").
 - `raw/2026-10-31/MANIFEST.json`: url, bytes, sha256, fetch time (UTC), HTTP Last-Modified of every file fetched, including the ZIPs, the pages and PDFs that are not republished.
 - `evidence/`: the terms of use, the Geoportal metadata and the PDL1.0 text as fetched, with plain-text extracts, and the quotes from the report.
 - `docs/`: `bear_mesh_by_survey.png`, `verification.json`, `summary.json`.
@@ -86,12 +89,27 @@ Not taken: do03 (birds only), yo1 (アライグマ), yo5 (カモシカ), and the
 | `source_file` | `<zip>:<member>` |
 | `source_row` | 1-based data row (CSV) or feature number (yo4) in the original file |
 | `地名`, `分類群`, `種コード`, `備考` | do02 columns, as in the CSV (`分類群` and `種コード` also in do04, do05) |
-| `調査票番号`, `調査者コード`, `年月` | do04 and do05 columns |
+| `調査票番号`, `年月` | do04 and do05 columns. The CSV also has `調査者コード`; it is not published here (see below) |
 | `確認調査` | do06 column |
 | `Descriptio`, `H22_29`, `単年度`, `第6回で確`, `第6回のみ`, `両調査で確` | yo4 (Bear.dbf) fields. The DBF cuts field names at 10 bytes, so `Descriptio`, `第6回で確` and `両調査で確` are cut names; the full names are not given by the source (確認できていない) |
-| `geometry` | yo4: the 5 km mesh polygon as in Bear.shp. CSV rows: null (the CSV files carry no geometry) |
+| `geometry` | yo4: the 5 km mesh polygon as in Bear.shp. CSV rows: null (the CSV files carry no geometry). Computed cells for all rows are in the other file |
 
 All attribute columns are strings, as in the source; a column that the survey does not have is null.
+
+### Cells computed from the mesh code
+
+`parquet/bear_mesh_cells_from_code.parquet` columns: `survey_id`, `source_row`, `mesh_code` (the key: the same three values as in the long table, same order), `mesh_digits`, `cell_kind`, and the polygon `geometry_computed_from_mesh_code`.
+These polygons were not distributed by the Ministry. They are computed from the code by yuiseki (`src/convert.py`: `cell_bounds`), so that every row has a cell. Rule, from the Biodiversity Center page <https://www.biodic.go.jp/kiso/col_mesh.html> (基準地域メッシュ, 標準地域メッシュ・システム, 昭48.7.12 行政管理庁告示第143号):
+「第１次地域区画は、経度差１度、緯度差40分で区画された範囲を指す。第２次地域区画は第１次地域区画を縦横８等分したもので、第３次地域区画は第２次地域区画を縦横10等分したものである。」
+「５倍地域メッシュ 経度差３分45秒、緯度差２分30秒」「第２次地域区画（２次メッシュ） 経度差７分30秒、緯度差５分」.
+Code reading used: digits 1-2 latitude (value / 1.5 degrees), 3-4 longitude (100 + value), 5 and 6 the 2nd-order row and column. 6-digit codes (do02, do04, do05) become the 2nd-order cell (0.125 x 0.0833 degrees).
+8-digit codes (do06, yo4) become the 5 km cell (0.0625 x 0.0417 degrees), taking the 7th and 8th digits (2 or 7) as the position of the 3rd-order cell at the centre of a 2x2 block (2 = south or west half, 7 = north or east half).
+This 7th and 8th digit reading is not stated by the Ministry: it was found from the data and holds for all 17,068 yo4 polygons, and is assumed (not testable without polygons) for do06, which uses the same code shape.
+Likewise the 6-digit reading as a 2nd-order mesh is an inference (see Mesh codes below).
+
+Check against the distributed shapes (yo4): 17,068 of 17,068 computed cells equal the distributed polygons (bounds within 2e-6 degrees, area within 1e-7; the shapefile rounds coordinates to 6 decimals).
+CRS: declared EPSG:6668 (JGD2011), the CRS of Bear.shp. The mesh grid is defined by latitude and longitude values; the geodetic datum that the older surveys (do02 to do05) used is not stated in the files (確認できていない), so for them 6668 is a labelling choice to match yo4, not a claim, and no datum conversion was done.
+The cells are rectangles on the grid and say nothing about where in the cell a bear was recorded.
 
 ### Mesh codes
 
@@ -103,7 +121,7 @@ All attribute columns are strings, as in the source; a column that the survey do
   The Biodiversity Center's mammal page says the 第2回 results are shown in 5倍地域メッシュ; the delivered CSV has 6-digit codes. Why the codes are coarser than that page says: 確認できていない (the ZIPs contain no description).
   So `do02/do04/do05` rows are not on the same grid as `do06/yo4`.
 - `年月` (do04, do05): 4 digits (`0208` to `9201` in do04; `1009` to `9812` in do05). The format is not documented in the ZIP; it looks like YYMM but the century is not given, so the values are kept as strings. 確認できていない.
-- `調査者コード` (do04, do05) is a 7-digit code of the surveyor in the original files (222 distinct codes in do04, 218 in do05); no names. It is kept as published by the Biodiversity Center.
+- `調査者コード` (do04, do05; 7-digit code of the surveyor) was left out of the published Parquet. It is in the Ministry's publication and holds no name, but it was removed to avoid any chance of tying it to a person. The values remain in the local raw files (not republished). The other columns are unchanged.
 
 ## Attributes of the yo4 file (Bear.shp)
 
@@ -169,6 +187,11 @@ Example (DuckDB):
 ```sql
 select survey_id, species, count(*) rows, count(distinct mesh_code) meshes
 from read_parquet('parquet/bear_mesh_long.parquet') group by all order by 1, 2;
+
+-- cells computed from the code, joined to the rows
+select l.survey_id, l.species, l.mesh_code, c.geometry_computed_from_mesh_code
+from read_parquet('parquet/bear_mesh_long.parquet') l
+join read_parquet('parquet/bear_mesh_cells_from_code.parquet') c using (survey_id, source_row) limit 5;
 ```
 
 ## Correction of March 2021
@@ -184,7 +207,7 @@ The notice 訂正等のお知らせ (環境省生物多様性センター, 2021�
 
 HTTP Last-Modified of the ZIPs: yo4 Sun, 10 May 2026 23:31:04 GMT, do02 Thu, 21 May 2026 01:25:51 GMT, do04 Mon, 27 Jul 2026 05:17:53 GMT, do05 Thu, 21 May 2026 01:27:03 GMT, do06 Thu, 21 May 2026 01:27:22 GMT.
 ZIP member timestamps: the do02, do05 and do06 CSVs 2026-05-21; the do04 mammal CSV 2026-07-16; Bear.* 2019-09-12. So the do02 to do06 CSV files were (re)made in 2026; what changed in them, if anything, is not stated (確認できていない).
-The repository name carries 2021-03 (the date of the yo4 correction) by the maintainer's first plan; by these timestamps 2026-07 may be the right month.
+The repository name carries no date because the surveys span 1978 to 2018 and the files carry different dates.
 
 ## License
 
@@ -205,7 +228,8 @@ The report titles of each survey (the 報告書 pages linked from <https://www.b
 
 - yo4 has no species field and do06 merges the two bears: only do02, do04 and do05 separate ツキノワグマ and ヒグマ. There is no Akita (or any prefecture) column; a prefecture needs a join with other data, which this dataset does not do.
 - do02, do04 and do05 use 6-digit (2nd-order) codes; do06 and yo4 use 8-digit 5 km codes. They are different grids.
-- The CSV rows have no geometry. The figure `docs/bear_mesh_by_survey.png` draws cells computed from the code (JIS X 0410) for the picture only.
+- The CSV rows have no distributed geometry (null in `bear_mesh_long.parquet`). `bear_mesh_cells_from_code.parquet` has cells computed from the code, not shapes of the Ministry; the 8-digit rule (7th and 8th digits 2 or 7) and the 6-digit 2nd-order reading are inferences (see above). The figure `docs/bear_mesh_by_survey.png` draws these computed cells.
+- The surveyor code (`調査者コード`) of do04 and do05 is not published here, to avoid tying it to a person; it is in the Ministry's publication, holds no name, and remains in the local raw files.
 - do04 and do05 rows are records, not unique meshes. `年月` values are unexplained (do05 has values such as `1009` although the survey years are 1997-98).
 - The report says 9,358 meshes (this survey) and 6,735 (6th); Bear.shp has 9,355 and 6,734; one 6th-survey mesh of do06 is not in Bear.shp. The cause is 確認できていない.
 - The page for the youchui survey dates the correction April 2021, the notice and the download page March 2021.

@@ -3,6 +3,7 @@
  "rows": 28194,
  "crs": "EPSG:6668",
  "crs_epsg": 6668,
+ "cells_rows": 28194,
  "rows_by_survey_species": {
   "do02|ツキノワグマ": 1298,
   "do02|ヒグマ": 742,
