@@ -1,0 +1,15 @@
+[project]
+name = "env-biodic-bear-distribution-mesh-jp"
+version = "0.1.0"
+description = "Biodiversity Center (MOE Japan) bear 5 km mesh distribution: reproducible collection"
+requires-python = ">=3.11"
+dependencies = ["pyarrow>=17", "duckdb>=1.5.5", "geopandas", "shapely>=2", "pyproj", "matplotlib", "huggingface_hub>=0.25", "pyyaml", "pyogrio"]
+
+[dependency-groups]
+dev = ["pytest", "ruff"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "scripts"]
