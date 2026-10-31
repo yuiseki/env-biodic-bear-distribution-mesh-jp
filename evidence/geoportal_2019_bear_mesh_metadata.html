@@ -1,0 +1,826 @@
+<html lang="en">
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="description" content="要注意鳥獣生息分布調査（中大型哺乳類分布調査）におけるクマ類（ヒグマ・ツキノワグマ）の全国分布情報GISデータです。">
+        <title></title>
+    </head>
+    <body>
+        <style>
+			  :root {
+				--color-brand: #007ac2;
+				--color-text-link: #00619b;
+				--color-background: #f8f8f8;
+				--color-foreground-1: #ffffff;
+				--color-foreground-2: #f3f3f3;
+				--color-text-1: #151515;
+				--color-text-2: #4a4a4a;
+				--color-border-input: #949494;
+				--color-border-1: #cacaca;
+				--color-border-2: #d4d4d4;
+				--color-border-3: #dfdfdf;
+				--font-size--2: 0.75rem;
+				--font-size--1: 0.875rem;
+				--font-size-0: 1rem;
+				--font-size-1: 1.25rem;
+				--font-size-2: 1.5rem;
+				--border-radius: 0.25rem;
+			  }
+			  html,
+			  body {
+				margin: 0;
+				padding: 0;
+				font-family: "Avenir Next", "Avenir", "Gill Sans MT", Arial, Helvetica,
+				  sans-serif;
+				color: var(--color-text-1);
+				line-height: 1.35;
+				background-color: var(--color-background);
+			  }
+		
+			  dd,
+			  dt {
+				word-wrap: break-word;
+			  }
+		
+			  [hidden] {
+				display: none !important;
+			  }
+		
+			  .flex {
+				display: flex;
+			  }
+		
+			  .flex-1 {
+				flex: 1 1 auto;
+			  }
+		
+			  .flex-0 {
+				flex: 0;
+			  }
+		
+			  .gap-4 {
+				gap: 1rem;
+			  }
+		
+			  .top {
+				background: var(--color-foreground-1);
+				padding: 0.5rem 1.5rem;
+				border-bottom: 1px solid var(--color-border-2);
+			  }
+		
+			  .top-container {
+				max-width: 41rem;
+				margin: 0 auto;
+				align-items: center;
+				display: flex;
+			  }
+		
+			  .top-title {
+				font-size: var(--font-size--1);
+				color: var(--color-text-2);
+				line-height: 1.35;
+				font-weight: 400;
+				padding: 0;
+				margin: 0;
+			  }
+		
+			  .top-actions {
+				display: flex;
+			  }
+		
+			  .toggle-switch {
+				display: block;
+				position: relative;
+				cursor: pointer;
+				user-select: none;
+				-webkit-tap-highlight-color: transparent;
+				tap-highlight-color: transparent;
+				margin-top: 0.5rem;
+				margin-bottom: -0.5rem;
+				line-height: 1.35;
+			  }
+		
+			  .toggle-switch::after {
+				content: "";
+				height: 2rem;
+				width: 0;
+				border-left: 1px solid var(--color-border-2);
+				margin: -0.5rem 0.75rem 0 0.75rem;
+				display: inline-block;
+			  }
+		
+			  .toggle-switch-input {
+				border: 0;
+				clip: rect(0 0 0 0);
+				height: 1px;
+				margin: -1px;
+				overflow: hidden;
+				padding: 0;
+				position: absolute;
+				width: 1px;
+			  }
+		
+			  .toggle-switch-input:hover + .toggle-switch-track:after {
+				border-color: var(--color-brand);
+				box-shadow: 0 1px 2px 0px rgba(89, 89, 89, 0.2);
+			  }
+		
+			  .toggle-switch-input:active + .toggle-switch-track {
+				box-shadow: 0 0 4px 2px rgba(204, 204, 204, 0.9);
+			  }
+		
+			  .toggle-switch-input:active + .toggle-switch-track:after {
+				inset-inline-start: 1px;
+				inset-inline-end: auto;
+				border-color: var(--color-brand);
+				box-shadow: 0 3px 1px 0px rgba(89, 89, 89, 0.2);
+			  }
+		
+			  .toggle-switch-input:checked + .toggle-switch-track {
+				border-color: var(--color-brand);
+				background-color: var(--color-brand);
+			  }
+		
+			  .toggle-switch-input:checked + .toggle-switch-track:after {
+				inset-inline-end: -1px;
+				inset-inline-start: auto;
+				border-color: var(--color-brand);
+				box-shadow: 0 2px 1px 0px rgba(89, 89, 89, 0.2);
+			  }
+		
+			  .toggle-switch-input:checked:active + .toggle-switch-track {
+				box-shadow: 0 0 4px 2px rgba(108, 180, 226, 0.9);
+			  }
+		
+			  .toggle-switch-input:checked:active + .toggle-switch-track:after {
+				inset-inline-end: 1px;
+				inset-inline-start: auto;
+				border-color: var(--color-brand);
+				box-shadow: 0 3px 1px 0px rgba(89, 89, 89, 0.2);
+			  }
+		
+			  .toggle-switch-input:focus + .toggle-switch-track:after {
+				border-color: var(--color-brand);
+			  }
+		
+			  .toggle-switch-input:checked:focus + .toggle-switch-track:after {
+				border-color: var(--color-brand);
+			  }
+		
+			  .toggle-switch-label {
+				width: calc((100% - 3em) - 0.5em);
+				padding: 0 0.25rem;
+				font-size: var(--font-size--2);
+				vertical-align: top;
+			  }
+		
+			  .toggle-switch-track {
+				position: relative;
+				display: inline-block;
+				vertical-align: top;
+				width: 1.5rem;
+				height: 0.75rem;
+				top: 0.05em;
+				background-color: var(--color-foreground-2);
+				border-radius: 2rem;
+				border: 1px solid var(--color-border-1);
+				-webkit-transition: all 0.25s ease;
+				transition: all 0.25s ease;
+			  }
+		
+			  .toggle-switch-track:after {
+				position: absolute;
+				display: block;
+				content: "";
+				width: 0.625rem;
+				height: 0.625rem;
+				top: -1px;
+				inset-inline-start: -1px;
+				inset-inline-end: auto;
+				background-color: #ffffff;
+				border-radius: 2rem;
+				border: 2px solid var(--color-border-input);
+				box-shadow: 0 1px 1px 0px rgba(89, 89, 89, 0.2);
+				-webkit-transition: all 0.25s ease;
+				transition: all 0.25s ease;
+			  }
+			  @supports (-ms-ime-align: auto) {
+				.toggle-switch-track {
+				  top: 0.1em;
+				}
+			  }
+			  @supports (-moz-appearance: none) {
+				.toggle-switch-track {
+				  top: 0.1em;
+				}
+			  }
+			  @supports (-webkit-overflow-scrolling: touch) {
+				.toggle-switch-track {
+				  top: 0.15em;
+				}
+			  }
+		
+			  .copy-button {
+				margin: 0;
+				cursor: pointer;
+				border-style: none;
+				padding: 0.5rem;
+				color: var(--color-brand);
+				outline: 2px solid transparent;
+				outline-offset: 2px;
+				outline-color: transparent;
+				transition: all 200ms ease-in-out 0s, outline 0s, outline-offset 0s;
+				background: transparent;
+				vertical-align: center;
+				display: flex;
+				font-family: inherit;
+				font-size: var(--font-size--2);
+			  }
+		
+			  .copy-button:hover {
+				background-color: var(--color-foreground-2);
+			  }
+		
+			  .copy-button:focus {
+				outline: 2px solid var(--color-brand);
+				outline-offset: -2px;
+			  }
+		
+			  .copy-button-text,
+			  .copy-button-text-short {
+				margin-inline-start: 0.5rem;
+			  }
+		
+			  .copy-button-text-short {
+				display: none;
+			  }
+		
+			  .container {
+				box-sizing: border-box;
+				width: 100%;
+				max-width: 37.5rem;
+				margin: 0.75rem auto;
+				padding: 0 1rem 1rem 1rem;
+				display: grid;
+			  }
+		
+			  .card {
+				width: 100%;
+				background-color: var(--color-foreground-1);
+				border: 1px solid var(--color-border-1);
+				padding: 1.5rem 1.5rem 2rem 1.5rem;
+				border-radius: var(--border-radius);
+				box-sizing: border-box;
+				overflow: hidden;
+			  }
+		
+			  .top-card {
+				display: flex;
+			  }
+		
+			  .thumbnail {
+				max-width: 12rem;
+				margin-inline-start: 2rem;
+				height: auto;
+				border-radius: var(--border-radius);
+			  }
+		
+			  .headline {
+				font-size: var(--font-size-1);
+				color: var(--color-text-2);
+				font-weight: 500;
+				padding: 0.25rem 0 0 0;
+				margin: 0;
+			  }
+		
+			  .summary {
+				font-size: var(--font-size--1);
+				line-height: 1.35;
+				padding: 1rem 0;
+				margin: 0;
+			  }
+		
+			  .one-column {
+				display: grid;
+				grid-template-columns: auto;
+				row-gap: 1rem;
+			  }
+		
+			  .two-column {
+				display: grid;
+				grid-template-columns: auto minmax(0, 1fr);
+				row-gap: 1rem;
+				column-gap: 2rem;
+			  }
+		
+			  .two-column--even {
+				grid-template-columns: 50% 50%;
+			  }
+		
+			  .plain-text {
+				font-size: var(--font-size--1);
+			  }
+		
+			  .plain-text .thumbnail {
+				margin-inline-start: 0;
+			  }
+		
+			  .plain-text dl {
+				margin: 0;
+			  }
+		
+			  .plain-text dt {
+				font-weight: 500;
+			  }
+		
+			  .plain-text dt:after {
+				content: ":";
+			  }
+		
+			  .plain-text dd {
+				margin-bottom: 0.75rem;
+			  }
+		
+			  dl.inline-definition {
+				margin: 0.5rem 0 1rem 0;
+				display: block;
+			  }
+		
+			  .inline-definition dt {
+				float: inline-start;
+				margin-inline-end: 0.25rem;
+			  }
+		
+			  .inline-definition dd {
+				margin-bottom: .25rem;
+			  }
+		
+			  .rich-text dl {
+				margin: 0;
+				padding: 0;
+			  }
+		
+			  .rich-text dt {
+				font-size: var(--font-size--2);
+				color: var(--color-text-2);
+				font-weight: 300;
+				margin: 0 0 0.25rem 0;
+				padding: 0;
+			  }
+		
+			  .rich-text dd {
+				margin: 0;
+				padding: 0;
+				font-size: var(--font-size--1);
+				color: var(--color-text-1);
+			  }
+		
+			  .rich-text dd + dt {
+				margin-top: 1rem;
+			  }
+		
+			  .rich-text a {
+				color: var(--color-text-link);
+			  }
+		
+			  .rich-text table {
+				border-collapse: collapse;
+				border-spacing: 0;
+				border: 1px solid var(--color-border-3);
+				text-align: start;
+				font-size: var(--font-size--2);
+				line-height: 1rem;
+				line-height: 1.5;
+				width: 100%;
+				background-color: var(--color-foreground-1);
+				overflow: auto;
+				margin-top: 0.5rem;
+			  }
+		
+			  .rich-text table > thead {
+				font-weight: 400;
+				font-style: normal;
+				line-height: 1.35;
+				border-bottom: 1px solid var(--color-border-3);
+				background-color: var(--color-foreground-3);
+			  }
+		
+			  .rich-text table > tbody {
+				overflow: auto;
+				width: 100%;
+			  }
+		
+			  .rich-text table > tfoot {
+				border-top-width: 1px;
+				border-style: solid;
+				border-top-color: var(--color-border-3);
+				background-color: var(--color-foreground-3);
+			  }
+		
+			  .rich-text table th,
+			  .rich-text table td {
+				border-left: 1px solid var(--color-border-3);
+				border-right: 1px solid var(--color-border-3);
+				font-size: var(--font-size--2);
+				text-align: start;
+				font-weight: 300;
+				padding: 0.25rem;
+			  }
+			  .rich-text table th {
+				font-weight: 500;
+				background-color: var(--color-background);
+				border-top: none;
+				border-bottom: none;
+			  }
+		
+			  .rich-text table td {
+				vertical-align: top;
+			  }
+		
+			  .rich-text table tr {
+				border-bottom: 1px solid var(--color-border-3);
+				text-align: start;
+			  }
+		
+			  .rich-text table tr:last-child {
+				border-bottom-width: 0px;
+			  }
+		
+			  .rich-text table caption {
+				font-size: var(--font-size--1);
+				line-height: 1rem;
+				line-height: 1.5;
+				color: var(--color-text-3);
+				caption-side: bottom;
+				padding: 0.375rem 0.75rem;
+			  }
+		
+			  .table-wrap {
+				max-width: 100%;
+				overflow: auto;
+			  }
+
+			  .distribution-link {
+				width: 32rem
+			  }
+		
+			  @media screen and (max-width: 600px) {
+				.two-column {
+				  grid-template-columns: minmax(0, 1fr);
+				}
+				.top-container {
+				  flex-direction: column;
+				}
+				.top-title {
+				  margin: 1rem;
+				  font-size: var(--font-size-0);
+				}
+				.top-card {
+				  flex-direction: column-reverse;
+				}
+				.thumbnail {
+				  margin: 0 auto 2rem;
+				  max-width: 100%;
+				}
+			  }
+		
+			  @media screen and (max-width: 420px) {
+				.copy-button-text {
+				  display: none;
+				}
+				.copy-button-text-short {
+				  display: inline-block;
+				}
+			  }
+			  
+			  .rich-text-editor img {
+				max-width: 100%;
+				height: auto;
+			  }
+			  
+			  .coord {
+				  min-width: 60px;
+				  display: inline-block;
+			  }
+			  
+			  .rich-text table td.centered {
+				  text-align: center;
+			  }
+
+			</style>
+        <header class="top">
+            <div class="top-container flex">
+                <h1 class="top-title flex-1">Metadata Information</h1>
+                <div class="top-actions">
+                    <label class="toggle-switch"><input type="checkbox" class="toggle-switch-input js-plain-text-toggle"><span class="toggle-switch-track"></span><span class="toggle-switch-label">View as plain text</span></label><button class="copy-button js-copy-button">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_10327_12441)">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M16 9.99988H8.723L10.325 11.6019L9.618 12.3089L6.808 9.49988L9.618 6.68988L10.325 7.39788L8.723 8.99988H16V9.99988ZM3 12.9999H7V11.9999H3V12.9999ZM11 0.999882V1.99988H13V7.99988H12V2.99988H11V3.99988H3V2.99988H2V14.9999H12V10.9999H13V15.9999H1V1.99988H3V0.999882H5.277C5.63013 0.381318 6.28774 -0.000488281 7 -0.000488281C7.71226 -0.000488281 8.36987 0.381318 8.723 0.999882H11ZM10 1.99988H8V1.68188C8 1.30522 7.69466 0.999882 7.318 0.999882H6.682C6.30534 0.999882 6 1.30522 6 1.68188V1.99988H4V2.99988H10V1.99988ZM7 5.99988H3V6.99988H7V5.99988ZM3 9.99988H5V8.99988H3V9.99988Z" fill="#007AC2"></path>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_10327_12441">
+                                    <rect width="16" height="16" fill="white"></rect>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <span class="copy-button-text">Copy all to clipboard</span><span class="copy-button-text-short">Copy</span></button>
+                </div>
+            </div>
+        </header>
+        <main class="container">
+            <div class="rich-text one-column js-rich-text">
+                <section class="card top-card">
+                    <div class="flex-1">
+                        <h2 class="headline"></h2>
+                        <p class="summary">要注意鳥獣生息分布調査（中大型哺乳類分布調査）におけるクマ類（ヒグマ・ツキノワグマ）の全国分布情報GISデータです。</p>
+                        <div class="two-column">
+                            <dl>
+                                <dt>Resource Type</dt>
+                                <dd>-</dd>
+                            </dl>
+                            <dl>
+                                <dt>Metadata Style</dt>
+                                <dd>Dublin Core+</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </section>
+                <section class="card">
+                    <div class="two-column">
+                        <dl>
+                            <dt>Contact Name</dt>
+                            <dd>-</dd>
+                            <dt>Contact Phone</dt>
+                            <dd>-</dd>
+                            <dt>Status</dt>
+                            <dd>-</dd>
+                            <dt>Update Frequency</dt>
+                            <dd>-</dd>
+                        </dl>
+                        <dl>
+                            <dt>Contact Email</dt>
+                            <dd>-</dd>
+                            <dt>Resource created</dt>
+                            <dd>
+                                <formattedDate xmlns="">-</formattedDate>
+                            </dd>
+                            <dt>Resource updated</dt>
+                            <dd>
+                                <formattedDate>-</formattedDate>
+                            </dd>
+                            <dt>Acknowledgements</dt>
+                            <dd>環境省　生物多様性センター</dd>
+                        </dl>
+                    </div>
+                </section>
+                <section class="card">
+                    <dl>
+                        <dt>Description</dt>
+                        <dd class="rich-text-editor"><p style='margin-bottom:0mm; line-height:17.0pt;'></p><p style='margin-bottom:0mm; line-height:17.0pt;'>環境省は、要注意鳥獣生息分布調査（2015（平成27）から2017（平成29）年度）及び中大型哺乳類分調査（2018（平成30）年度）において、クマ類（ヒグマ・ツキノワグマ）の分布を調査しました。詳しい説明は下記リンク先情報をご覧ください。</p><p style='margin-bottom:0mm; line-height:17.0pt;'><br /></p><p style='margin-bottom:0mm; line-height:17.0pt;'><a href='https://www.biodic.go.jp/youchui/youchui_top.html#mainText' rel='nofollow ugc'>要注意鳥獣（クマ等）生息分布調査 | 生物多様性センター(環境省 自然環境局)</a></p><p style='margin-bottom:0mm; line-height:17.0pt;'><br /></p>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'>本データは、環境省（2019）を基に作成された要注意鳥獣生息分布調査（中大型哺乳類分布調査）のGISデータ（シェープファイル。自然環境調査Web-GISに掲載）から、要注意鳥獣生息分布調査（中大型哺乳類分布調査）において生息が確認された地点の情報を抽出したものです。</p>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'><br /></p><p style='margin-bottom:0mm; line-height:17.0pt;'>出典：環境省．<span>2019</span>．平成<span>30</span>年度（<span>2018</span>年度）中大型哺乳類分布調査 調査報告書</p>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'><br /></p><p style='margin-bottom:0mm; line-height:17.0pt;'>名称：2019　クマ類全国分布メッシュ</p><p style='margin-bottom:0mm; line-height:17.0pt;'>内容：要注意鳥獣生息分布調査（中大型哺乳類分布調査）において生息が確認されたクマ類の全国分布メッシュ図<span>GIS</span>データ（<span>5</span>倍地域メッシュ（約<span>5 km×</span>約<span>5 km</span>））</p>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'>ダウンロード元：<span><a href='http://gis.biodic.go.jp/webgis/sc-023.html' rel='nofollow ugc'><span><span>環境省生物多様性センター</span></span><span><span> </span></span><span><span>自然環境<span>調査Web-GIS</span></span></span></a></span>、要注意鳥獣（クマ等）生息分布調査、ヒグマ、ツキノワグマ（ダウンロード日<span> 2026</span>年<span>2</span>月<span>13</span>日）</p>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'>ファイル名：<span>Bear.shp</span>等</p>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'><span><br />
+</span>調査年度：<span>2015-2018<br /></span>座標参照系：<span>JGD2011</span>（<span>EPSG:6668</span>）<span><br />
+</span>文字コード：<span>UTF-8 <br />
+</span>データ形状：ポリゴン（5倍地域メッシュ。約<span>5km*</span>約<span>5km</span>）<span><br />
+</span>データ構造</p>
+
+<ul>
+ <li><span>5kmMesh</span>：<span>5 km</span>メッシュコード（<span>7</span>桁）</li>
+ <li><span>2015-2018</span>：凡例情報（<span>1:</span>生息、<span>0:</span>情報なし）</li>
+</ul>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'><br /></p><p style='margin-bottom:0mm; line-height:17.0pt;'>なお、「SHAPE_Area」「SHAPE_Length」はArcGISにより自動的に付与される管理用情報であり、本データの成果物ではありません。</p></dd>
+                        <dt>Tags</dt>
+                        <dd>生物多様性センター, 自然環境保全基礎調査, 哺乳類, 動物分布, ヒグマ, ツキノワグマ, クマ, 自然環境, 生物多様性, 自然環境・生物多様性</dd>
+                        <dt>Topic Categories</dt>
+                        <dd>-</dd>
+                    </dl>
+                </section>
+                <section class="card">
+                    <dl>
+                        <dt>License</dt>
+                        <dd>-</dd>
+                        <dt>Terms of Use</dt>
+                        <dd class="rich-text-editor">【利用上の注意】<ul><li>ご利用にあたっては、<a href='https://www.biodic.go.jp/copyright/terms_of_service.html' target='_blank' rel='nofollow ugc noopener noreferrer'>生物多様性センターウェブサイト利用規約</a>を必ず遵守するようにしてください。<br /></li><li>本コンテンツは、予告なく変更、削除、移転等が行われることがあります。<br /></li><li>当データを利用したことによって生じたいかなる損害に対して一切責任を負いません。<br /></li><li>上記規約は、<a href='https://creativecommons.org/licenses/by/4.0/deed.ja' target='_blank' rel='nofollow ugc noopener noreferrer'>クリエイティブ・コモンズ・ライセンスの表示4.0国際</a>と互換性があり、利用規約が適用されるコンテンツは CC BY に従うことでも利用することができます。</li></ul></dd>
+                        <dt>Access Rights (Security Classification Level)</dt>
+                        <dd>-</dd>
+                    </dl>
+                </section>
+                <section class="card">
+                    <dl>
+                        <dt>Item Details</dt>
+                        <dd class="distribution-link">-</dd>
+                        <dt>Resource URL</dt>
+                        <dd class="distribution-link">-</dd>
+                    </dl>
+                </section>
+                <section class="card">
+                    <dl>
+                        <dt>Geographic Extent</dt>
+                        <dd>
+                            <div>
+                                <span class="coord">West:</span>122.874999999789
+                            </div>
+                            <div>
+                                <span class="coord">East:</span>154.000000000322
+                            </div>
+                            <div>
+                                <span class="coord">South:</span>20.4166669994472
+                            </div>
+                            <div>
+                                <span class="coord">North:</span>45.5416669990843
+                            </div>
+                        </dd>
+                        <dt>Coordinate Reference System</dt>
+                        <dd>EPSG:4326</dd>
+                        <dt>Appropriate Scale Range</dt>
+                        <dd>-</dd>
+                        <dt>Temporal Extent</dt>
+                        <dd>-</dd>
+                    </dl>
+                </section>
+                <section class="card">
+                    <div class="two-column">
+                        <dl>
+                            <dt>Resource Language</dt>
+                            <dd>-</dd>
+                        </dl>
+                        <dl>
+                            <dt>Metadata File Identifier</dt>
+                            <dd>-</dd>
+                        </dl>
+                    </div>
+                </section>
+            </div>
+            <div class="js-plain-text plain-text one-column" hidden="">
+                <div class="card">
+                    <h2></h2>
+                    <p>要注意鳥獣生息分布調査（中大型哺乳類分布調査）におけるクマ類（ヒグマ・ツキノワグマ）の全国分布情報GISデータです。</p>
+                    <dl>
+                        <dt>Resource Type</dt>
+                        <dd></dd>
+                        <dt>Metadata Style</dt>
+                        <dd>Dublin Core+</dd>
+                    </dl>
+                    <dl>
+                        <dt>Contact Name</dt>
+                        <dd></dd>
+                        <dt>Contact Phone</dt>
+                        <dd></dd>
+                        <dt>Status</dt>
+                        <dd></dd>
+                        <dt>Update Frequency</dt>
+                        <dd></dd>
+                    </dl>
+                    <dl>
+                        <dt>Contact Email</dt>
+                        <dd></dd>
+                        <dt>Resource created</dt>
+                        <dd></dd>
+                        <dt>Resource updated</dt>
+                        <dd></dd>
+                        <dt>Acknowledgements</dt>
+                        <dd>環境省　生物多様性センター</dd>
+                    </dl>
+                    <dl>
+                        <dt>Description</dt>
+                        <dd class="rich-text-editor"><p style='margin-bottom:0mm; line-height:17.0pt;'></p><p style='margin-bottom:0mm; line-height:17.0pt;'>環境省は、要注意鳥獣生息分布調査（2015（平成27）から2017（平成29）年度）及び中大型哺乳類分調査（2018（平成30）年度）において、クマ類（ヒグマ・ツキノワグマ）の分布を調査しました。詳しい説明は下記リンク先情報をご覧ください。</p><p style='margin-bottom:0mm; line-height:17.0pt;'><br /></p><p style='margin-bottom:0mm; line-height:17.0pt;'><a href='https://www.biodic.go.jp/youchui/youchui_top.html#mainText' rel='nofollow ugc'>要注意鳥獣（クマ等）生息分布調査 | 生物多様性センター(環境省 自然環境局)</a></p><p style='margin-bottom:0mm; line-height:17.0pt;'><br /></p>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'>本データは、環境省（2019）を基に作成された要注意鳥獣生息分布調査（中大型哺乳類分布調査）のGISデータ（シェープファイル。自然環境調査Web-GISに掲載）から、要注意鳥獣生息分布調査（中大型哺乳類分布調査）において生息が確認された地点の情報を抽出したものです。</p>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'><br /></p><p style='margin-bottom:0mm; line-height:17.0pt;'>出典：環境省．<span>2019</span>．平成<span>30</span>年度（<span>2018</span>年度）中大型哺乳類分布調査 調査報告書</p>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'><br /></p><p style='margin-bottom:0mm; line-height:17.0pt;'>名称：2019　クマ類全国分布メッシュ</p><p style='margin-bottom:0mm; line-height:17.0pt;'>内容：要注意鳥獣生息分布調査（中大型哺乳類分布調査）において生息が確認されたクマ類の全国分布メッシュ図<span>GIS</span>データ（<span>5</span>倍地域メッシュ（約<span>5 km×</span>約<span>5 km</span>））</p>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'>ダウンロード元：<span><a href='http://gis.biodic.go.jp/webgis/sc-023.html' rel='nofollow ugc'><span><span>環境省生物多様性センター</span></span><span><span> </span></span><span><span>自然環境<span>調査Web-GIS</span></span></span></a></span>、要注意鳥獣（クマ等）生息分布調査、ヒグマ、ツキノワグマ（ダウンロード日<span> 2026</span>年<span>2</span>月<span>13</span>日）</p>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'>ファイル名：<span>Bear.shp</span>等</p>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'><span><br />
+</span>調査年度：<span>2015-2018<br /></span>座標参照系：<span>JGD2011</span>（<span>EPSG:6668</span>）<span><br />
+</span>文字コード：<span>UTF-8 <br />
+</span>データ形状：ポリゴン（5倍地域メッシュ。約<span>5km*</span>約<span>5km</span>）<span><br />
+</span>データ構造</p>
+
+<ul>
+ <li><span>5kmMesh</span>：<span>5 km</span>メッシュコード（<span>7</span>桁）</li>
+ <li><span>2015-2018</span>：凡例情報（<span>1:</span>生息、<span>0:</span>情報なし）</li>
+</ul>
+
+<p style='margin-bottom:0mm; line-height:17.0pt;'><br /></p><p style='margin-bottom:0mm; line-height:17.0pt;'>なお、「SHAPE_Area」「SHAPE_Length」はArcGISにより自動的に付与される管理用情報であり、本データの成果物ではありません。</p></dd>
+                        <dt>Tags</dt>
+                        <dd>生物多様性センター, 自然環境保全基礎調査, 哺乳類, 動物分布, ヒグマ, ツキノワグマ, クマ, 自然環境, 生物多様性, 自然環境・生物多様性</dd>
+                        <dt>Topic Categories</dt>
+                        <dd></dd>
+                    </dl>
+                    <dl>
+                        <dt>License</dt>
+                        <dd></dd>
+                    </dl>
+                    <dl>
+                        <dt>Terms of Use</dt>
+                        <dd class="rich-text-editor">【利用上の注意】<ul><li>ご利用にあたっては、<a href='https://www.biodic.go.jp/copyright/terms_of_service.html' target='_blank' rel='nofollow ugc noopener noreferrer'>生物多様性センターウェブサイト利用規約</a>を必ず遵守するようにしてください。<br /></li><li>本コンテンツは、予告なく変更、削除、移転等が行われることがあります。<br /></li><li>当データを利用したことによって生じたいかなる損害に対して一切責任を負いません。<br /></li><li>上記規約は、<a href='https://creativecommons.org/licenses/by/4.0/deed.ja' target='_blank' rel='nofollow ugc noopener noreferrer'>クリエイティブ・コモンズ・ライセンスの表示4.0国際</a>と互換性があり、利用規約が適用されるコンテンツは CC BY に従うことでも利用することができます。</li></ul></dd>
+                    </dl>
+                    <dl>
+                        <dt>Access Rights (Security Classification Level)</dt>
+                        <dd></dd>
+                    </dl>
+                    <dl>
+                        <dt>Item Details</dt>
+                        <dd></dd>
+                    </dl>
+                    <dl>
+                        <dt>Resource URL</dt>
+                        <dd></dd>
+                    </dl>
+                    <dl>
+                        <dt>Geographic Extent</dt>
+                        <dd>
+                            <div>
+                                <span class="coord">West:</span>122.874999999789
+                            </div>
+                            <div>
+                                <span class="coord">East:</span>154.000000000322
+                            </div>
+                            <div>
+                                <span class="coord">South:</span>20.4166669994472
+                            </div>
+                            <div>
+                                <span class="coord">North:</span>45.5416669990843
+                            </div>
+                        </dd>
+                        <dt>Appropriate Scale Range</dt>
+                        <dd></dd>
+                        <dt>Temporal Extent</dt>
+                        <dd></dd>
+                        <dt>Coordinate Reference System</dt>
+                        <dd>EPSG:4326</dd>
+                    </dl>
+                    <dl>
+                        <dt>Resource Language</dt>
+                        <dd></dd>
+                        <dt>Metadata File Identifier</dt>
+                        <dd></dd>
+                    </dl>
+                </div>
+            </div>
+        </main>
+        <script>
+			  const toggle = document.querySelector(".js-plain-text-toggle");
+			  const plainText = document.querySelector(".js-plain-text");
+			  const richText = document.querySelector(".js-rich-text");
+			  const copy = document.querySelector(".js-copy-button");
+			  const thumbnails = document.querySelectorAll(".thumbnail");
+			  const searchParams = new URLSearchParams(window.location.search);
+			  const token = searchParams.get('token');
+              			  
+			  if (token?.length) {
+				  thumbnails?.forEach(el => {
+					  let src = el.src;
+					  if (src.includes("?")) {
+						  el.src = src+"&token="+token;
+					  } else {
+						  el.src = src+"?token="+token;
+					  }
+				  });
+			  }
+			  	
+			  toggle.addEventListener("change", (e) => {
+				const checked = e.target.checked;
+				if (checked) {
+				  plainText.removeAttribute("hidden");
+				  richText.setAttribute("hidden", true);
+				} else {
+				  plainText.setAttribute("hidden", true);
+				  richText.removeAttribute("hidden");
+				}
+			  });
+		
+			  copy.addEventListener("click", () => {
+				const text = plainText.textContent;
+				if (navigator.clipboard && window.isSecureContext) {
+				  navigator.clipboard.writeText(text)
+				  .then(() => {
+					document.querySelector(".copy-button-text").innerHTML = "Copied to clipboard"
+					document.querySelector(".copy-button-text-short").innerHTML = "Copied"
+				  })
+				  .catch((err) => {
+					console.error("Failed to copy text: ", err);
+				  });
+				}
+			  });
+			</script>
+    </body>
+</html>

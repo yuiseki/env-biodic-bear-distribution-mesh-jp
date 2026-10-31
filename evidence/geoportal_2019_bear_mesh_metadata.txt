@@ -1,0 +1,128 @@
+ 
+ Metadata Information
+ View as plain text 
+ Copy all to clipboard Copy 
+ 要注意鳥獣生息分布調査（中大型哺乳類分布調査）におけるクマ類（ヒグマ・ツキノワグマ）の全国分布情報GISデータです。
+ Resource Type 
+ - 
+ Metadata Style 
+ Dublin Core+ 
+ Contact Name 
+ - 
+ Contact Phone 
+ - 
+ Status 
+ - 
+ Update Frequency 
+ - 
+ Contact Email 
+ - 
+ Resource created 
+ - 
+ Resource updated 
+ - 
+ Acknowledgements 
+ 環境省 生物多様性センター 
+ Description 
+ 環境省は、要注意鳥獣生息分布調査（2015（平成27）から2017（平成29）年度）及び中大型哺乳類分調査（2018（平成30）年度）において、クマ類（ヒグマ・ツキノワグマ）の分布を調査しました。詳しい説明は下記リンク先情報をご覧ください。
+ 要注意鳥獣（クマ等）生息分布調査 | 生物多様性センター(環境省 自然環境局) 
+ 本データは、環境省（2019）を基に作成された要注意鳥獣生息分布調査（中大型哺乳類分布調査）のGISデータ（シェープファイル。自然環境調査Web-GISに掲載）から、要注意鳥獣生息分布調査（中大型哺乳類分布調査）において生息が確認された地点の情報を抽出したものです。
+ 出典：環境省． 2019 ．平成 30 年度（ 2018 年度）中大型哺乳類分布調査 調査報告書
+ 名称：2019 クマ類全国分布メッシュ
+ 内容：要注意鳥獣生息分布調査（中大型哺乳類分布調査）において生息が確認されたクマ類の全国分布メッシュ図 GIS データ（ 5 倍地域メッシュ（約 5 km× 約 5 km ））
+ ダウンロード元： 環境省生物多様性センター 自然環境 調査Web-GIS 、要注意鳥獣（クマ等）生息分布調査、ヒグマ、ツキノワグマ（ダウンロード日 2026 年 2 月 13 日）
+ ファイル名： Bear.shp 等
+ 調査年度： 2015-2018
+ 座標参照系： JGD2011 （ EPSG:6668 ） 
+ 文字コード： UTF-8 
+ データ形状：ポリゴン（5倍地域メッシュ。約 5km* 約 5km ） 
+ データ構造
+ 5kmMesh ： 5 km メッシュコード（ 7 桁）
+ 2015-2018 ：凡例情報（ 1: 生息、 0: 情報なし）
+ なお、「SHAPE_Area」「SHAPE_Length」はArcGISにより自動的に付与される管理用情報であり、本データの成果物ではありません。
+ Tags 
+ 生物多様性センター, 自然環境保全基礎調査, 哺乳類, 動物分布, ヒグマ, ツキノワグマ, クマ, 自然環境, 生物多様性, 自然環境・生物多様性 
+ Topic Categories 
+ - 
+ License 
+ - 
+ Terms of Use 
+ 【利用上の注意】 ご利用にあたっては、 生物多様性センターウェブサイト利用規約 を必ず遵守するようにしてください。
+ 本コンテンツは、予告なく変更、削除、移転等が行われることがあります。
+ 当データを利用したことによって生じたいかなる損害に対して一切責任を負いません。
+ 上記規約は、 クリエイティブ・コモンズ・ライセンスの表示4.0国際 と互換性があり、利用規約が適用されるコンテンツは CC BY に従うことでも利用することができます。
+ Access Rights (Security Classification Level) 
+ - 
+ Item Details 
+ - 
+ Resource URL 
+ - 
+ Geographic Extent 
+ West: 122.874999999789
+ East: 154.000000000322
+ South: 20.4166669994472
+ North: 45.5416669990843
+ Coordinate Reference System 
+ EPSG:4326 
+ Appropriate Scale Range 
+ - 
+ Temporal Extent 
+ - 
+ Resource Language 
+ - 
+ Metadata File Identifier 
+ - 
+ 要注意鳥獣生息分布調査（中大型哺乳類分布調査）におけるクマ類（ヒグマ・ツキノワグマ）の全国分布情報GISデータです。
+ Resource Type 
+ Metadata Style 
+ Dublin Core+ 
+ Contact Name 
+ Contact Phone 
+ Status 
+ Update Frequency 
+ Contact Email 
+ Resource created 
+ Resource updated 
+ Acknowledgements 
+ 環境省 生物多様性センター 
+ Description 
+ 環境省は、要注意鳥獣生息分布調査（2015（平成27）から2017（平成29）年度）及び中大型哺乳類分調査（2018（平成30）年度）において、クマ類（ヒグマ・ツキノワグマ）の分布を調査しました。詳しい説明は下記リンク先情報をご覧ください。
+ 要注意鳥獣（クマ等）生息分布調査 | 生物多様性センター(環境省 自然環境局) 
+ 本データは、環境省（2019）を基に作成された要注意鳥獣生息分布調査（中大型哺乳類分布調査）のGISデータ（シェープファイル。自然環境調査Web-GISに掲載）から、要注意鳥獣生息分布調査（中大型哺乳類分布調査）において生息が確認された地点の情報を抽出したものです。
+ 出典：環境省． 2019 ．平成 30 年度（ 2018 年度）中大型哺乳類分布調査 調査報告書
+ 名称：2019 クマ類全国分布メッシュ
+ 内容：要注意鳥獣生息分布調査（中大型哺乳類分布調査）において生息が確認されたクマ類の全国分布メッシュ図 GIS データ（ 5 倍地域メッシュ（約 5 km× 約 5 km ））
+ ダウンロード元： 環境省生物多様性センター 自然環境 調査Web-GIS 、要注意鳥獣（クマ等）生息分布調査、ヒグマ、ツキノワグマ（ダウンロード日 2026 年 2 月 13 日）
+ ファイル名： Bear.shp 等
+ 調査年度： 2015-2018
+ 座標参照系： JGD2011 （ EPSG:6668 ） 
+ 文字コード： UTF-8 
+ データ形状：ポリゴン（5倍地域メッシュ。約 5km* 約 5km ） 
+ データ構造
+ 5kmMesh ： 5 km メッシュコード（ 7 桁）
+ 2015-2018 ：凡例情報（ 1: 生息、 0: 情報なし）
+ なお、「SHAPE_Area」「SHAPE_Length」はArcGISにより自動的に付与される管理用情報であり、本データの成果物ではありません。
+ Tags 
+ 生物多様性センター, 自然環境保全基礎調査, 哺乳類, 動物分布, ヒグマ, ツキノワグマ, クマ, 自然環境, 生物多様性, 自然環境・生物多様性 
+ Topic Categories 
+ License 
+ Terms of Use 
+ 【利用上の注意】 ご利用にあたっては、 生物多様性センターウェブサイト利用規約 を必ず遵守するようにしてください。
+ 本コンテンツは、予告なく変更、削除、移転等が行われることがあります。
+ 当データを利用したことによって生じたいかなる損害に対して一切責任を負いません。
+ 上記規約は、 クリエイティブ・コモンズ・ライセンスの表示4.0国際 と互換性があり、利用規約が適用されるコンテンツは CC BY に従うことでも利用することができます。
+ Access Rights (Security Classification Level) 
+ Item Details 
+ Resource URL 
+ Geographic Extent 
+ West: 122.874999999789
+ East: 154.000000000322
+ South: 20.4166669994472
+ North: 45.5416669990843
+ Appropriate Scale Range 
+ Temporal Extent 
+ Coordinate Reference System 
+ EPSG:4326 
+ Resource Language 
+ Metadata File Identifier 
+

@@ -1,0 +1,37 @@
+source: 環境省生物多様性センター 自然環境保全基礎調査 動物分布調査(do02, do04, do05, do06), 要注意鳥獣(クマ等)生息分布調査(yo4)
+url: https://www.biodic.go.jp/shapedata/download.html
+terms: https://www.biodic.go.jp/copyright/terms_of_service.html
+license: 生物多様性センター ウェブサイト利用規約 (公共データ利用規約 第1.0版 PDL1.0 に準拠, CC BY 4.0 互換とされる)
+fetched_at_utc: "2026-10-31T10:22:45+00:00"
+raw: raw/2026-10-31/ (MANIFEST.json has url, bytes, sha256, Last-Modified; ZIPs not republished)
+credit: 出典：環境省生物多様性センター『自然環境保全基礎調査』『要注意鳥獣(クマ等)生息分布調査』を加工して作成
+surveys:
+  - id: do02
+    report: "動物分布調査報告書[哺乳類] 昭和55年 全国版 (https://www.biodic.go.jp/reports/2-5/ac000.html), 昭和56年 全国版その２"
+    zip_sha256: 1128d96f24e6c1864244d26f1eab511e55982ee5e1c44d2304e0225493bc593f
+    zip_last_modified: "Thu, 21 May 2026 01:25:51 GMT"
+    rows_in_table: 2040
+  - id: do04
+    report: "動植物分布調査報告書 哺乳類 平成5年 (https://www.biodic.go.jp/reports/4-02/index.html)"
+    zip_sha256: 1179e0a60f1cfc04ca399a14b801b103455d02b1fdb9e9561a29dcb6f72d778d
+    zip_last_modified: "Mon, 27 Jul 2026 05:17:53 GMT"
+    rows_in_table: 1766
+  - id: do05
+    report: "動物分布調査報告書 哺乳類 平成14年 (https://www.biodic.go.jp/reports2/5th/ap_mam/index.html)"
+    zip_sha256: 5aadecb5bd1499c8a1a1fd8bd724a801e516b6911609365450fb0b0cb2836597
+    zip_last_modified: "Thu, 21 May 2026 01:27:03 GMT"
+    rows_in_table: 585
+  - id: do06
+    report: "哺乳類分布調査報告書 平成16年 (https://www.biodic.go.jp/reports2/6th/6_mammal/index.html)"
+    zip_sha256: 555a237d1f164f98a73fc60730bd1d3c8b95bd4e22c80930c5d909f44ef741dc
+    zip_last_modified: "Thu, 21 May 2026 01:27:22 GMT"
+    rows_in_table: 6735
+  - id: yo4
+    report: "平成30年度（2018年度）中大型哺乳類分布調査 調査報告書 クマ類（ヒグマ・ツキノワグマ）・カモシカ (環境省 2019, 一部訂正 2021) https://www.biodic.go.jp/youchui/reports/h30_chuogata_houkoku_teisei.pdf"
+    zip_sha256: 220f1d27d388db700cb9f25359f0e5afdad1c7d6456ab60a2cda289de71dd952
+    zip_last_modified: "Sun, 10 May 2026 23:31:04 GMT"
+    rows_in_table: 17068
+correction_notice: {url: https://www.biodic.go.jp/shapedata/files/news_yo_210331.pdf, sha256: d1b04ddde5a9aeffd78b8d95cfb5920de0ec1d3a4e8070d6a1cdb0e5df333d0b, last_modified: "Wed, 31 Mar 2021 09:11:11 GMT", republished: false}
+rows: 28194
+crs: EPSG:6668 (JGD2011), as in Bear.prj; no reprojection; CSV rows have null geometry
+processing: selected the bear rows, added survey_id/survey_label/species/species_in_source/mesh_code/source_file/source_row, kept all source attributes unchanged as strings; no correction, repair, reprojection, filling or merging

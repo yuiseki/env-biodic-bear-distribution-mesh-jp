@@ -1,0 +1,13 @@
+The source data are content of the Biodiversity Center of the Ministry of the Environment of Japan (環境省 生物多様性センター).
+Terms: https://www.biodic.go.jp/copyright/terms_of_service.html (最終改正 令和7年3月11日):
+  権利表記の記載がない限り「公共データ利用規約（第1.0版）」（PDL1.0）に準拠した利用条件の下で、利用することができます。
+PDL1.0: https://www.digital.go.jp/resources/open_data/public_data_license_v1.0
+  本利用ルールは、クリエイティブ・コモンズ・ライセンスの表示4.0 国際ライセンスに規定される著作権利用許諾条件（CC BY）と互換性があります。
+
+When you use this dataset:
+ 1. State the source: 出典：環境省生物多様性センター『自然環境保全基礎調査』『要注意鳥獣(クマ等)生息分布調査』を加工して作成 (https://www.biodic.go.jp/shapedata/download.html)
+ 2. State that it was edited or processed and by whom: processed into one Parquet table by yuiseki (rows selected, columns added, values and geometry unchanged).
+ 3. Do not present the processed data as if the State (or the Ministry) had published it unprocessed.
+ 4. Some content may be restricted by other laws (the terms mention GSI maps under the Survey Act); these files use no GSI map as far as they show.
+
+The original text of the terms, the Geoportal metadata and PDL1.0 as fetched is in evidence/. This file is a notice by the maintainer, not a license grant.
